@@ -1,0 +1,101 @@
+<?xml version="1.0"?><robot name="CartPole">
+
+  <link name="base">
+
+    <inertial>
+      <origin xyz="0 0 0" />
+      <mass value="1" />
+    </inertial>
+
+    <visual>
+      <origin xyz="0 0 0" />
+      <geometry>
+        <box size=".5 .2 .2" />
+      </geometry>
+      <material>
+        <color rgba="0 1 0 1" />
+      </material>
+    </visual>
+
+    <visual>
+      <origin xyz=".15 0 -.15" rpy="0 0 0" />
+      <geometry>
+        <sphere radius=".05" />
+      </geometry>
+      <material>
+        <color rgba="0 0 0 1" />
+      </material>
+    </visual>
+    
+    <visual>
+      <origin xyz="-.15 0 -.15" rpy="0 0 0" />
+      <geometry>
+        <sphere radius=".05" />
+      </geometry>
+      <material>
+        <color rgba="0 0 0 1" />
+      </material>
+    </visual>
+  </link>
+
+ 
+  <link name="pendulum0">
+    
+  <!-- This is how you can write comments in urdfs -->
+  <!-- TODO: Write the inertial component below -->
+    <inertial>
+        <origin xyz="0 0 -1."/>
+        <mass value="1"/>
+    </inertial>
+
+
+  <!-- TODO: Write the visual component for the sphere (radius=0.05, mass=1.) below -->
+    <visual>
+        <origin xyz="0 0 -1." rpy="0 0 0"/>
+        <geometry>
+            <sphere radius=".05"/>
+        </geometry>
+        <material>
+            <color rgba="0 0 0 1"/>
+        </material>
+    </visual>
+
+
+  <!-- TODO: Write the visual component for the cylindrical rod (radius=0.01, length=1.) below -->
+    <visual>
+        <origin xyz="0 0 -.5" rpy="0 0 0"/>
+        <geometry>
+            <cylinder length="1." radius=".01"/>
+        </geometry>
+        <material>
+            <color rgba="0 0 0 1"/>
+        </material>
+    </visual>
+
+  </link>
+
+
+  <joint name="x" type="prismatic">
+    <parent link="world" />
+    <child link="base" />
+    <axis xyz="1 0 0" />
+  </joint>
+
+
+
+<!-- TODO: write the parent, child, axis and origin for the pendulum joint named "theta0" with type "continuous". -->
+    <joint name="theta" type="continuous">
+        <parent link="base"/>
+        <child link="pendulum0"/>
+        <axis xyz="0 -1 0"/>
+    </joint>
+
+
+
+  <transmission type="SimpleTransmission" name="base_force">
+    <actuator name="force" />
+    <joint name="x" />
+  </transmission>
+
+  </robot>
+</xml>
