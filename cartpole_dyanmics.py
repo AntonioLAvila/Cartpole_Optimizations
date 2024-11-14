@@ -51,6 +51,14 @@ class LinearizedCartpole():
         self.B_zoh = np.array(self.sys_disc.B)
 
 class BetterLinearizedCartpole():
+    '''
+    Holds A,B,C,D matrices for the cartpole linearized about
+    the fixed point at x*=[0, pi, 0, 0], u*=0 (upright) in error
+    coordiantes (x̄ = Ax̄ + Bū)
+    - A and B are the CT matrices
+    - A_zoh and B_zoh are the DT matrices
+    discretized with zero-order hold
+    '''
     def __init__(self) -> None:
         m_c = 1
         m_p = 1
@@ -99,8 +107,8 @@ class BetterLinearizedCartpole():
         l = self.l
         g = self.g
         return np.array([
-            [xd],
-            [thd],
-            [1/(m_c+m_p*sin(th)**2) * (fx + m_p*sin(th)*(l*thd + g*cos(th)))],
-            [1/(l*(m_c+m_p*sin(th)**2)) * (-fx*cos(th) - m_p*l*thd**2*cos(th)*sin(th) - (m_c+m_p)*g*sin(th))]
+            xd,
+            thd,
+            1/(m_c+m_p*sin(th)**2) * (fx + m_p*sin(th)*(l*thd + g*cos(th))),
+            1/(l*(m_c+m_p*sin(th)**2)) * (-fx*cos(th) - m_p*l*thd**2*cos(th)*sin(th) - (m_c+m_p)*g*sin(th))
         ])

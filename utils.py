@@ -11,6 +11,7 @@ from pydrake.all import (
     Simulator,
     AddDefaultVisualization,
 )
+
 Q = np.diag([10,10,1,1])
 R = np.eye(1)
 def simulate_stabilization_FHLQR(meshcat, x_traj: PiecewisePolynomial, u_traj: PiecewisePolynomial):

@@ -15,6 +15,8 @@ from pydrake.all import (
     StartMeshcat
 )
 
+# TODO: stabalize the trajectory with own algorithm
+
 urdf = "file://"+os.getcwd()+"/cartpole.urdf"
 solver = SnoptSolver()
 meshcat = StartMeshcat()
