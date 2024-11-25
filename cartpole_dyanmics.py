@@ -1,7 +1,6 @@
 import numpy as np
 from numpy import sin, cos
 import control
-import sympy as sp
 
 class LinearizedCartpole():
     '''
