@@ -111,3 +111,6 @@ class BetterLinearizedCartpole():
             1/(m_c+m_p*sin(th)**2) * (fx + m_p*sin(th)*(l*thd + g*cos(th))),
             1/(l*(m_c+m_p*sin(th)**2)) * (-fx*cos(th) - m_p*l*thd**2*cos(th)*sin(th) - (m_c+m_p)*g*sin(th))
         ])
+    
+    def f_fwd_euler(self, x, u):
+        return x + self.dt * self.f(x, u)

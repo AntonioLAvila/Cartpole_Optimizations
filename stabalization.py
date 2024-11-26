@@ -12,6 +12,7 @@ cartpole = BetterLinearizedCartpole()
 A = cartpole.A_zoh
 B = cartpole.B_zoh
 f = cartpole.f
+f_fwd_euler = cartpole.f_fwd_euler
 dt = cartpole.dt
 
 # costs/constraints
@@ -60,8 +61,6 @@ def plot(u_traj, x_traj, t_traj):
     plt.ylabel("Input Force (Newtons)")
     plt.title("Force on Cart")
 
-    # TODO: Why's it so high
-    # TODO: Find the actual limits analytically
     error = [np.zeros(4)]
     overall_error = [0]
     for i in range(n_sim):
@@ -74,7 +73,7 @@ def plot(u_traj, x_traj, t_traj):
     overall_error = np.array(overall_error)
     cum_overall_error = np.cumsum(overall_error)
     plt.figure(3)
-    plt.plot(t_traj, cum_error[2,:])
+    plt.plot(t_traj, error[2,:])
     plt.xlabel("Time (s)")
     plt.ylabel("Theta Error (radians)")
     plt.title("Linearization Error")
@@ -87,7 +86,8 @@ if __name__ == "__main__":
         if i == 1: start = time.time()
         prob.solve(solver=cp.OSQP, warm_start=True)
         if i == 1: print(f'Solve time: {time.time() - start}')
-        x0 = A@(x0 - x_star) + B@u[:,0].value + x_star
+        # x0 = A@(x0 - x_star) + B@u[:,0].value + x_star # linear dynamics
+        x0 = f_fwd_euler(x0, u[:,0].value) # non-linear dynamics
         t_traj.append(i*dt)
         x_traj.append(x0)
         u_traj.append(u[:,0].value)
