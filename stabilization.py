@@ -22,7 +22,7 @@ Qf = np.diag([100, 100, 10, 10])
 f_max = 10
 
 # mpc variables, state = [x, th, xd, thd]
-x0 = np.array([0, pi-0.3, 0, 0])
+x0 = np.array([0, pi-0.1, 2, 0.5])
 x_star = np.array([0, pi, 0, 0])
 xf = x_star
 N = 20
